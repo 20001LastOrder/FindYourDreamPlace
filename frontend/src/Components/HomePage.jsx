@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import 'whatwg-fetch';
 
+
 class HomePage extends Component{
     state={
         url: "https://d3n8a8pro7vhmx.cloudfront.net/bnaibrithcanada/pages/2436/attachments/original/1518020966/MAR22_POTTER_POST02.jpg?1518020966",
