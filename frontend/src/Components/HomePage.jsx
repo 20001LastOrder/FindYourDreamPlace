@@ -28,8 +28,11 @@ class HomePage extends Component{
         this.setState({url: event.target.value});
     }
     
-    componentDidUpdate(){
-        
+    componentDidUpdate(prevProps, prevState){
+        const {name} = this.state;
+        if(name !== prevState.name){
+            this.setState({inProgress: false});
+        }
     }
     
     callBackend = () =>{
@@ -59,8 +62,8 @@ class HomePage extends Component{
          .catch(
              error => 
               console.log(`catch error ${error}`)
-            )
-         .finally(()=>this.setState({inProgress: false}));
+            );
+         //.finally(()=>this.setState({inProgress: false}));
     }
     
     render(){
