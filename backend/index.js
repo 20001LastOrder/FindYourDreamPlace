@@ -91,6 +91,6 @@ app.get("/image",function(req, res){
     });
 })
 
-app.listen(8081, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Listening on port " + 8081);
 });
