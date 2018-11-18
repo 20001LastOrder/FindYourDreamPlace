@@ -7,23 +7,25 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import 'whatwg-fetch';
 
 
 class HomePage extends Component{
     state={
         url: "https://d3n8a8pro7vhmx.cloudfront.net/bnaibrithcanada/pages/2436/attachments/original/1518020966/MAR22_POTTER_POST02.jpg?1518020966",
-        name:"Initiate",
+        name:"Kreyser Avrora",
         address:"",
         error: "",
         center:{
             lat:59.955413,
             lng:30.337844
-        }
+        },
+        inProgress:false
     }
     
     handleChange = event =>{
-        this.setState({url: event.target.value})
+        this.setState({url: event.target.value});
     }
     
     componentDidUpdate(){
@@ -33,6 +35,7 @@ class HomePage extends Component{
     callBackend = () =>{
         const {url} = this.state;
         console.log(`try calling api using url ${url}`);
+        this.setState({inProgress: true});
         window
         .fetch("https://vision-backend-codejam.herokuapp.com/image?url="+url)
         .then(res => res.json())
@@ -44,7 +47,8 @@ class HomePage extends Component{
                     address,
                     name
                 });
-              console.log(result);
+                this.setState({inProgress: false});
+                console.log(result);
             },
             // Note: it's important to handle errors here
             // instead of a catch() block so that we don't swallow
@@ -69,6 +73,7 @@ class HomePage extends Component{
                     </Typography>
                 </Toolbar>
         </AppBar>
+        
         <Grid container>
             <Grid item xs={12}>
                 <Paper style={{padding: "10px", margin:"10px", minWidth: "80%"}}>
@@ -87,13 +92,18 @@ class HomePage extends Component{
                 </Button>
                 </Paper>
             </Grid>
+            {this.state.inProgress &&
+                (<Grid item xs={12}>
+                    <CircularProgress color="secondary"/>
+                </Grid>)
+            }
             <Grid item xs={12}>
                 <MyGoogleMap 
                     url={this.state.url} 
                     center={this.state.center}
                     name={this.state.name} 
                     address={this.state.address}
-                    zoom={15}
+                    zoom={16}
                 />
             </Grid>
         </Grid>

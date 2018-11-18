@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component,Fragment } from 'react';
 import GoogleMapReact from 'google-map-react';
 import {InfoWindow, Marker, GoogleApiWrapper} from "google-maps-react";
 import Person from "@material-ui/icons/Place";
 
 const AnyReactComponent = ({ text }) => {
-  return (<div style={{ fontSize: "3em", }}>
-  <Person color={"secondary"}/>
-  </div>)
+  return (
+    <Fragment>
+    <Person color={"secondary"} fontSize={"large"}/>
+    {text}
+  </Fragment>
+  );
 }
 
 class SimpleMap extends Component {
