@@ -15,13 +15,14 @@ class HomePage extends Component{
     state={
         url: "https://d3n8a8pro7vhmx.cloudfront.net/bnaibrithcanada/pages/2436/attachments/original/1518020966/MAR22_POTTER_POST02.jpg?1518020966",
         name:"Kreyser Avrora",
-        address:"",
+        address:"Sankt-Peterburg, Russia, 197046",
         error: "",
         center:{
             lat:59.955413,
             lng:30.337844
         },
-        inProgress:false
+        inProgress:false,
+        searchTime: 0
     }
     
     handleChange = event =>{
@@ -29,8 +30,8 @@ class HomePage extends Component{
     }
     
     componentDidUpdate(prevProps, prevState){
-        const {name} = this.state;
-        if(name !== prevState.name){
+        const {name, searchTime, address} = this.state;
+        if(name !== prevState.name || address !== prevState.address || searchTime!== prevState.searchTime){
             this.setState({inProgress: false});
         }
     }
@@ -48,7 +49,8 @@ class HomePage extends Component{
                 this.setState({
                     center: location,
                     address,
-                    name
+                    name,
+                    searchTime: this.state.searchTime + 1
                 });
                 console.log(result);
             },
@@ -67,6 +69,7 @@ class HomePage extends Component{
     }
     
     render(){
+        const {name, address} = this.state;
         return  (
         <Fragment>
         <AppBar position="static" color="primary">
@@ -80,6 +83,17 @@ class HomePage extends Component{
         <Grid container>
             <Grid item xs={12}>
                 <Paper style={{padding: "10px", margin:"10px", minWidth: "80%"}}>
+
+                    { address 
+                    
+                        ?  <Typography variant="h5" color="inherit">
+                            `Current location: ${name}, ${address}`
+                            </Typography>
+                        : <Typography variant="h5" color="primary">
+                            `No place found, I think it's ${name} in the picture.`
+                            </Typography>
+                    }
+                
                 <form noValidate autoComplete="off">
                     <TextField
                         fullWidth
