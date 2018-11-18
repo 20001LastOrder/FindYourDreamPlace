@@ -47,7 +47,6 @@ class HomePage extends Component{
                     address,
                     name
                 });
-                this.setState({inProgress: false});
                 console.log(result);
             },
             // Note: it's important to handle errors here
@@ -60,7 +59,8 @@ class HomePage extends Component{
          .catch(
              error => 
               console.log(`catch error ${error}`)
-            );
+            )
+         .finally(()=>this.setState({inProgress: false}));
     }
     
     render(){

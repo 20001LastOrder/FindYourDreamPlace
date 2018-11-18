@@ -4,7 +4,8 @@
   "description": "what the hell is it",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "deploy": "cd ../ && git subtree push --prefix backend heroku-backend master || true"
   },
   "author": "",
   "license": "ISC",
